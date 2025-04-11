@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<header class="hero" style="padding-top: 20vh;">
+    {% for visual in global_visuals %}
+        {% if visual.file_type == "image" and visual.css_class == "hero-image" %}
+            <img src="{{ visual.file_url }}" alt="{{ visual.description }}" class="{{ visual.css_class }}">
+        {% elif visual.file_type == "video" and visual.css_class == "hero-video" %}
+            <iframe src="{{ visual.file_url }}" class="{{ visual.css_class }}" allowfullscreen></iframe>
+        {% endif %}
+    {% endfor %}
+
+    <h1>PlusFrame Combo</h1>
+    <p>Your daily source for Indonesian Fighting Game E-Sport news</p>
+    {% if highlight_article and highlight_article.id %}
+        <a href="{% url 'article' highlight_article.id %}" class="cta-button">Read Today's Highlight</a>
+    {% endif %}
+</header>
+
+    <section class="news-grid" style="padding-top: 10vh;" id="articlesContainer">
+        {% for article in articles %}
+        <article>
+            <img src="{{ article.get_image_url }}" alt="{{ article.headline }}">
+
+            {% if article.article_id %}
+                <h2><a href="{% url 'article_detail' article.article_id %}"> {{ article.headline }}</a></h2>
+            {% else %}
+                <h2>{{ article.headline }}</h2>
+            {% endif %}
+        
+            <p>{{ article.description }}</p>
+        </article>
+        {% endfor %}
+    </section>
+    <script>
+        fetch('/api/articles/')
+        .then(res => res.json())
+        .then(data => {});
+    </script>
+{% endblock %}
