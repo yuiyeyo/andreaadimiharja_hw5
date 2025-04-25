@@ -37,7 +37,7 @@ body {
 
 button:focus,
 .mobile-menu a:focus {
-    outline: 2px solid #FFD700; /* Yellow focus outline */
+    outline: 2px solid #FFD700; 
 }
 
 .mobile-menu a {
